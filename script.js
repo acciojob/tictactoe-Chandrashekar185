@@ -1,4 +1,4 @@
-const button = document.getElementById("strtGame");
+const button = document.getElementById("submit");
 const playerform = document.getElementById("playerform");
 const board = document.getElementById("board");
 const messageDiv = document.querySelector(".message");
@@ -8,8 +8,8 @@ let player2name = "";
 let boardstate = Array(9).fill("");
 
 button.addEventListener("click", () => {
-    player1name = document.getElementById("player-1").value.trim();
-    player2name = document.getElementById("player-2").value.trim();
+    player1name = document.getElementById("player1").value.trim();
+    player2name = document.getElementById("player2").value.trim();
 
     if (player1name === "" || player2name === "") {
         alert("Enter both players' names");
