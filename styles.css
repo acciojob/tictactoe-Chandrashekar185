@@ -1,34 +1,44 @@
-/*  your css code here. If applicable */
 body {
-  font-family: Arial, sans-serif;
-  background: #f2f2f2;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  padding-top: 50px;
-  height: 100vh;
-  margin: 0;
+    font-family: Arial, sans-serif;
+    background: #f2f2f2;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 50px;
+    height: 100vh;
+    margin: 0;
 }
 
 .container {
-  width: 100%;
-  max-width: 400px;
+    width: 100%;
+    max-width: 400px;
 }
 
 .playerform {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
+
+.board {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 5px;
+}
+
 .cell {
-  background-color: #fff;
-  border: 2px solid #333;
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background-color 0.2s ease;
+    background-color: #fff;
+    border: 2px solid #333;
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+.cell:hover {
+    background-color: #eaeaea;
 }

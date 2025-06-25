@@ -1,75 +1,78 @@
-// JavaScript
 const button = document.getElementById("strtGame");
 const playerform = document.getElementById("playerform");
 const board = document.getElementById("board");
-let currentplayer = "X";
+const messageDiv = document.querySelector(".boardmsg");
+let currentPlayer = "X";
 let player1name = "";
 let player2name = "";
 let boardstate = Array(9).fill("");
 
 button.addEventListener("click", () => {
-  player1name = document.getElementById("player1").value.trim();
-  player2name = document.getElementById("player2").value.trim();
+    player1name = document.getElementById("player-1").value.trim();
+    player2name = document.getElementById("player-2").value.trim();
 
-  if (player1name === "" || player2name === "") {
-    alert("Enter both players' names");
-    return;
-  }
+    if (player1name === "" || player2name === "") {
+        alert("Enter both players' names");
+        return;
+    }
 
-  playerform.style.display = "none";
-  document.getElementById("Gamecontainer").style.display = "block";
+    playerform.style.display = "none";
+    document.getElementById("Gamecontainer").style.display = "block";
 
-  document.querySelector(".boardmsg").textContent = `${player1name}, you're up!`;
-  renderboard();
+    messageDiv.textContent = `${player1name}, you're up!`;
+    renderBoard();
 });
 
-function renderboard() {
-  board.innerHTML = "";
+function renderBoard() {
+    board.innerHTML = "";
+    for (let i = 0; i < 9; i++) {
+        const cell = document.createElement("div");
+        cell.classList.add("cell");
+        cell.setAttribute("data-index", i);
+        cell.addEventListener("click", () => {
+            if (cell.textContent !== "") return;
 
-  for (let i = 0; i < 9; i++) {
-    const cell = document.createElement("div");
-    cell.classList.add("cell");
-    cell.setAttribute("data-index", i);
-    cell.addEventListener("click", () => {
-      if (cell.textContent !== "") return;
+            const currentName = currentPlayer === "X" ? player1name : player2name;
+            cell.textContent = currentPlayer;
+            boardstate[i] = currentPlayer;
 
-      const currentName = currentplayer === "X" ? player1name : player2name;
+            if (checkWin()) {
+                messageDiv.textContent = `${currentName}, congratulations you won!`;
+                disableBoard();
+                return;
+            }
 
-      cell.textContent = currentplayer;
-      boardstate[i] = currentplayer;
+            if (boardstate.every(cell => cell !== "")) {
+                messageDiv.textContent = "It's a draw!";
+                disableBoard();
+                return;
+            }
 
-      if (checkWin()) {
-        document.querySelector(".boardmsg").textContent = `${currentName}, congratulations you won!`;
-        disableBoard();
-        return;
-      }
+            currentPlayer = currentPlayer === "X" ? "O" : "X";
+            const nextName = currentPlayer === "X" ? player1name : player2name;
+            messageDiv.textContent = `${nextName}, you're up!`;
+        });
 
-      // Switch players
-      currentplayer = currentplayer === "X" ? "O" : "X";
-      const nextName = currentplayer === "X" ? player1name : player2name;
-      document.querySelector(".boardmsg").textContent = `${nextName}, you're up!`;
-    });
-
-    board.appendChild(cell);
-  }
+        board.appendChild(cell);
+    }
 }
 
 function checkWin() {
-  const winCombos = [
-    [0,1,2], [3,4,5], [6,7,8], // rows
-    [0,3,6], [1,4,7], [2,5,8], // cols
-    [0,4,8], [2,4,6]           // diagonals
-  ];
+    const winCombos = [
+        [0, 1, 2], [3, 4, 5], [6, 7, 8], // rows
+        [0, 3, 6], [1, 4, 7], [2, 5, 8], // cols
+        [0, 4, 8], [2, 4, 6]            // diagonals
+    ];
 
-  return winCombos.some(combo => {
-    const [a, b, c] = combo;
-    return boardstate[a] &&
-           boardstate[a] === boardstate[b] &&
-           boardstate[a] === boardstate[c];
-  });
+    return winCombos.some(combo => {
+        const [a, b, c] = combo;
+        return boardstate[a] &&
+               boardstate[a] === boardstate[b] &&
+               boardstate[a] === boardstate[c];
+    });
 }
 
 function disableBoard() {
-  const cells = document.querySelectorAll(".cell");
-  cells.forEach(cell => cell.style.pointerEvents = "none");
+    const cells = document.querySelectorAll(".cell");
+    cells.forEach(cell => cell.style.pointerEvents = "none");
 }
