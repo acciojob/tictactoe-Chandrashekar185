@@ -2,7 +2,7 @@ const button = document.getElementById("submit");
 const playerform = document.getElementById("playerform");
 const board = document.getElementById("board");
 const messageDiv = document.querySelector(".message");
-let currentPlayer = "X";
+let currentPlayer = "x";
 let player1name = "";
 let player2name = "";
 let boardstate = Array(9).fill("");
@@ -32,12 +32,12 @@ function renderBoard() {
         cell.addEventListener("click", () => {
             if (cell.textContent !== "") return;
 
-            const currentName = currentPlayer === "X" ? player1name : player2name;
+            const currentName = currentPlayer === "x" ? player1name : player2name;
             cell.textContent = currentPlayer;
             boardstate[i] = currentPlayer;
 
             if (checkWin()) {
-                messageDiv.textContent = `${currentName}, congratulations you won!`;
+                messageDiv.textContent = `${currentName} congratulations you won!`;
                 disableBoard();
                 return;
             }
@@ -48,8 +48,8 @@ function renderBoard() {
                 return;
             }
 
-            currentPlayer = currentPlayer === "X" ? "O" : "X";
-            const nextName = currentPlayer === "X" ? player1name : player2name;
+            currentPlayer = currentPlayer === "x" ? "o" : "x";
+            const nextName = currentPlayer === "x" ? player1name : player2name;
             messageDiv.textContent = `${nextName}, you're up!`;
         });
 
