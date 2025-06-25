@@ -1,7 +1,7 @@
 const button = document.getElementById("strtGame");
 const playerform = document.getElementById("playerform");
 const board = document.getElementById("board");
-const messageDiv = document.querySelector(".boardmsg");
+const messageDiv = document.querySelector(".message");
 let currentPlayer = "X";
 let player1name = "";
 let player2name = "";
@@ -28,7 +28,7 @@ function renderBoard() {
     for (let i = 0; i < 9; i++) {
         const cell = document.createElement("div");
         cell.classList.add("cell");
-        cell.setAttribute("data-index", i);
+        cell.setAttribute("id", i + 1); 
         cell.addEventListener("click", () => {
             if (cell.textContent !== "") return;
 
